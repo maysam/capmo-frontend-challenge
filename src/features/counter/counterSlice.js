@@ -1,9 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialMenu = [
+  {
+    "Bacon & eggs": [
+      {
+        Bacon: [{ Meat: [{ Pork: [] }] }]
+      },
+      {
+        "Ham Eggs": [{ Egg: [] }]
+      }
+    ]
+  },
+  {
+    Hamburger: [
+      {
+        Meat: [{ Pork: [] }]
+      },
+      {
+        Bread: [{ Flour: [], Water: [] }]
+      },
+      {
+        Cheese: [{ Milk: [] }]
+      }
+    ]
+  },
+  {
+    "English breakfast": [
+      {
+        "Fried eggs": [{ Egg: [] }]
+      },
+      {
+        Mushrooms: []
+      },
+      {
+        Sausages: [{ Meat: [{ Pork: [] }] }]
+      },
+      {
+        Bread: [{ Flour: [] }, { Water: [] }]
+      }
+    ]
+  }
+];
 
 export const slice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState: {
-    value: 0,
+    value: 12,
+    menu: initialMenu
   },
   reducers: {
     increment: state => {
@@ -18,8 +61,8 @@ export const slice = createSlice({
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { increment, decrement, incrementByAmount } = slice.actions;
@@ -38,5 +81,7 @@ export const incrementAsync = amount => dispatch => {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectCount = state => state.counter.value;
+
+export const selectMenu = state => state.counter.menu;
 
 export default slice.reducer;
