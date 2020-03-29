@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "38ef427d15cd56276a1c101a91e61bf3",
+    "revision": "1208af5134746b8cf1253555d91bdda3",
     "url": "/capmo-frontend-challenge/index.html"
   },
   {
