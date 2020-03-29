@@ -1,23 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography } from "@material-ui/core";
 
-const Text = ({ text, depth }) => (
-  <Typography variant={"h" + depth} component={"h" + depth}>
-    {text}
+const Text = ({ text = "provide text", depth = 1, selection }) => (
+  <Typography variant={"h" + (depth + 1)}>
+    {selection ? (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: (depth > 1 ? "└" + text : text).replace(
+            new RegExp(selection, "gi"),
+            match => `<mark>${match}</mark>`
+          )
+        }}
+      />
+    ) : (
+      text
+    )}
   </Typography>
 );
 
-export const MenuItem = ({ menu, depth }) =>
-  menu.map((item, index) => (
-    <div
-      style={{
-        border: "solid thin gray",
-        paddingLeft: depth * 10,
-        margin: 10
-      }}
-      key={"menu-item-" + index}
-    >
-      <Text text={Object.keys(item)[0]} depth={depth} />
-      <MenuItem menu={Object.values(item)[0]} depth={depth + 1} />
-    </div>
-  ));
+const menuHasSelection = (menu, selection) => {
+  if (selection === "") {
+    return true;
+  }
+  const text = Object.keys(menu)[0];
+  if (text.match(new RegExp(selection, "gi"))) {
+    return true;
+  }
+  const submenu = Object.values(menu)[0];
+  const mappings = submenu.map(item => menuHasSelection(item, selection));
+  return mappings.includes(true);
+};
+
+export const MenuItem = ({ menu = [], depth = 1, selection = "" }) =>
+  menu.map((item, index) => {
+    if (!menuHasSelection(item, selection)) return null;
+    const text = Object.keys(item)[0];
+    const submenu = Object.values(item)[0];
+
+    const submenuHtml = (
+      <MenuItem menu={submenu} depth={depth + 1} selection={selection} />
+    );
+    return (
+      <div
+        style={{
+          border: "none thin gray",
+          paddingLeft: depth * 20
+        }}
+        key={"menu-item-" + index}
+      >
+        <Text text={text} depth={depth} selection={selection} />
+        {submenuHtml}
+      </div>
+    );
+  });
