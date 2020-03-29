@@ -36,6 +36,6 @@ The menu has 3 items.
 
 User inputs: `“Eg”` / `“Egg”` / `“eg”` / `“egg”` or some other variant of the same word and 2 results are provided: Bacon & Eggs, English breakfast. When user clicks on one of the results, the item is shown highlighted in tree view.
 
-####Bonus points:
+#### Bonus points:
 
 Create an interface for adding new menu items and ingredients.
