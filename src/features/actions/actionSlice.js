@@ -43,38 +43,43 @@ const initialMenu = [
 ];
 
 export const slice = createSlice({
-         name: "restaurent",
-         initialState: {
-           menu: initialMenu
-         },
-         reducers: {
-           addNewMenu: (state, action) => {
-             const newMenu = {};
-             newMenu[action.payload] = [];
-             state.menu.push(newMenu);
-           },
-           addNewIngredient: (state, action) => {
-             const { selectedMenu, newIngredient } = action.payload;
+  name: "restaurent",
+  initialState: {
+    menu: initialMenu
+  },
+  reducers: {
+    addNewMenu: (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+      const newMenu = {};
+      newMenu[action.payload] = [];
+      state.menu.push(newMenu);
+    },
+    addNewIngredient: (state, action) => {
+      const { selectedMenu, newIngredient } = action.payload;
+      if (!newIngredient) {
+        return;
+      }
+      const newMenu = {};
+      newMenu[newIngredient] = [];
 
-             const newMenu = {};
-             newMenu[newIngredient] = [];
+      const parts = selectedMenu.split(" -> ");
+      let menu = state.menu;
 
-             const parts = selectedMenu.split(" -> ");
-             let menu = state.menu;
+      parts.forEach(element => {
+        Object.values(menu).forEach((item, index) => {
+          const key = Object.keys(item)[0];
+          if (key === element) {
+            menu = Object.values(menu)[index][key];
+          }
+        });
+      });
 
-             parts.forEach(element => {
-               Object.values(menu).forEach((item, index) => {
-                 const key = Object.keys(item)[0];
-                 if (key === element) {
-                   menu = Object.values(menu)[index][key];
-                 }
-               });
-             });
-
-             menu.push(newMenu);
-           }
-         }
-       });
+      menu.push(newMenu);
+    }
+  }
+});
 
 export const { addNewMenu, addNewIngredient } = slice.actions;
 
