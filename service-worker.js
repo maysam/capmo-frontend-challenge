@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/capmo-frontend-challenge/precache-manifest.6f5800c4a028735bb19c86ac4c3fe7f4.js"
+  "/capmo-frontend-challenge/precache-manifest.4c3ca9726b66b6018909113530b363e3.js"
 );
 
 self.addEventListener('message', (event) => {
