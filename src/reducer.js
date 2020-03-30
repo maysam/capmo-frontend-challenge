@@ -1,56 +1,33 @@
-const initialMenu = [
-  {
-    "Bacon & eggs": [
-      {
-        Bacon: [{ Meat: [{ Pork: [] }] }]
-      },
-      {
-        "Ham Eggs": [{ Egg: [] }]
-      }
-    ]
+const initialMenu = {
+  "Bacon & eggs": {
+    Bacon: { Meat: { Pork: {} } },
+    "Ham Eggs": { Egg: {} }
   },
-  {
-    Hamburger: [
-      {
-        Meat: [{ Pork: [] }]
-      },
-      {
-        Bread: [{ Flour: [] }, { Water: [] }]
-      },
-      {
-        Cheese: [{ Milk: [] }]
-      }
-    ]
+
+  Hamburger: {
+    Meat: { Pork: {} },
+    Bread: { Flour: {}, Water: {} },
+    Cheese: { Milk: {} }
   },
-  {
-    "English breakfast": [
-      {
-        "Fried eggs": [{ Egg: [] }]
-      },
-      {
-        Mushrooms: []
-      },
-      {
-        Sausages: [{ Meat: [{ Pork: [] }] }]
-      },
-      {
-        Bread: [{ Flour: [] }, { Water: [] }]
-      }
-    ]
+
+  "English breakfast": {
+    "Fried eggs": { Egg: {} },
+    Mushrooms: {},
+    Sausages: { Meat: { Pork: {} } },
+    Bread: { Flour: {}, Water: {} }
   }
-];
+};
+
 export const initialState = { menu: initialMenu };
 
 export function reducer(state, action) {
   const oldMenu = state.menu;
-  const newMenu = {};
   switch (action.type) {
     case "addNewMenu":
       if (!action.payload) {
         return state;
       }
-      newMenu[action.payload] = [];
-      oldMenu.push(newMenu);
+      oldMenu[action.payload] = {};
       return { menu: oldMenu };
     case "addNewIngredient":
       const { selectedMenu, newIngredient } = action.payload;
@@ -59,21 +36,22 @@ export function reducer(state, action) {
       }
 
       const parts = selectedMenu.split(" -> ");
-      let menu = state.menu;
+      let menu = oldMenu;
 
       parts.forEach(element => {
-        for (let index = 0; index < Object.values(menu).length; index++) {
-          const item = Object.values(menu)[index];
-          const key = Object.keys(item)[0];
+        for (let index = 0; index < Object.entries(menu).length; index++) {
+          const item = Object.entries(menu)[index];
+          const [key, sub] = item;
+          console.log(key, sub);
           if (key === element) {
-            menu = item[key];
+            menu = sub;
             break;
           }
         }
       });
 
-      newMenu[newIngredient] = [];
-      menu.push(newMenu);
+      menu[newIngredient] = {};
+
       return { menu: oldMenu };
     default:
       throw new Error();

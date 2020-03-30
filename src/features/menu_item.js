@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography } from "@material-ui/core";
 
 const Text = ({ text = "provide text", depth = 1, selection }) => (
-  <Typography variant={"h" + (Math.min(6,depth + 3))}>
+  <Typography variant={"h" + Math.min(6, depth + 3)}>
     {depth > 1 && "└"}
     {depth > 1 && selection ? (
       <span
@@ -23,12 +23,13 @@ const menuHasSelection = (menu, depth, selection) => {
   if (selection === "") {
     return true;
   }
-  const text = Object.keys(menu)[0];
+
+  const [text, submenu] = menu;
   if (depth > 1 && text.match(new RegExp(selection, "gi"))) {
     return true;
   }
-  const submenu = Object.values(menu)[0];
-  const mappings = submenu.map(item =>
+
+  const mappings = Object.entries(submenu).map(item =>
     menuHasSelection(item, depth + 1, selection)
   );
   return mappings.includes(true);
@@ -37,12 +38,11 @@ const menuHasSelection = (menu, depth, selection) => {
 export const MenuItem = ({ menu = {}, depth = 1, selection = "" }) => {
   const [showDetails, show] = useState(false);
   if (depth === 1 && !menuHasSelection(menu, depth, selection)) return null;
-  const text = Object.keys(menu)[0];
-  const submenu = Object.values(menu)[0];
 
+  const [text, submenu] = menu;
   const submenuHtml =
     (showDetails || depth > 1) &&
-    submenu.map((subitem, index) => (
+    Object.entries(submenu).map((subitem, index) => (
       <MenuItem
         key={"sub-item-" + index}
         menu={subitem}
@@ -50,6 +50,7 @@ export const MenuItem = ({ menu = {}, depth = 1, selection = "" }) => {
         selection={selection}
       />
     ));
+
   return (
     <div
       style={{

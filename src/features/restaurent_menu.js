@@ -43,7 +43,7 @@ export const RestaurentMenu = () => {
       />
       <div style={{ margin: 15, border: "thin solid navy" }}>
         <div style={{ margin: 5, padding: 10, border: "thin solid navy" }}>
-          {menu.map((item, index) => (
+          {Object.entries(menu).map((item, index) => (
             <MenuItem
               key={"menu-item" + index}
               menu={item}

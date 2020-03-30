@@ -13,10 +13,11 @@ import {
 import { MenuContext } from "../restaurent_context_provider";
 
 const flattenMenu = menu => {
-  const text = Object.keys(menu)[0];
+  const [text, _submenu] = menu;
+  // const text = Object.keys(menu)[0];
   const menus = [text];
 
-  const submenu = Object.values(menu)[0];
+  const submenu = Object.entries(_submenu);
   if (submenu.length > 0) {
     const subs = submenu.flatMap(item => flattenMenu(item));
     subs.forEach(sub => {
@@ -29,7 +30,7 @@ const flattenMenu = menu => {
 export const MenuEditor = () => {
   const [menu, dispatch] = useContext(MenuContext);
 
-  const flattenedMenu = menu.flatMap(item => flattenMenu(item));
+  const flattenedMenu = Object.entries(menu).flatMap(item => flattenMenu(item));
 
   const [newMenu, setNewMenu] = useState("");
   const [selectedMenu, setSelectedMenu] = useState(flattenedMenu[0]);
