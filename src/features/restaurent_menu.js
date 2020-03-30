@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useContext, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,7 +8,8 @@ import {
   Switch
 } from "@material-ui/core";
 
-import { reducer, initialState } from "./actions/reducer";
+import { MenuContext } from "../restaurent_context_provider";
+
 import { MenuItem } from "./menu_item";
 import { MenuEditor } from "./menu_editor";
 
@@ -16,8 +17,7 @@ export const RestaurentMenu = () => {
   const [keyword, setKeyword] = useState("");
   const [editable, toggleEditable] = useState(false);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const menu = state.menu;
+  const [menu] = useContext(MenuContext);
 
   return (
     <div>
@@ -52,7 +52,7 @@ export const RestaurentMenu = () => {
           ))}
         </div>
       </div>
-      {editable && <MenuEditor menu={menu} dispatch={dispatch} />}
+      {editable && <MenuEditor />}
     </div>
   );
 };

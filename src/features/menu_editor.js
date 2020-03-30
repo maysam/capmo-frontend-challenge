@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,6 +9,8 @@ import {
   MenuItem,
   Button
 } from "@material-ui/core";
+
+import { MenuContext } from "../restaurent_context_provider";
 
 const flattenMenu = menu => {
   const text = Object.keys(menu)[0];
@@ -24,7 +26,9 @@ const flattenMenu = menu => {
   return menus;
 };
 
-export const MenuEditor = ({ menu, dispatch }) => {
+export const MenuEditor = () => {
+  const [menu, dispatch] = useContext(MenuContext);
+
   const flattenedMenu = menu.flatMap(item => flattenMenu(item));
 
   const [newMenu, setNewMenu] = useState("");
