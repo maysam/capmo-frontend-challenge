@@ -56,7 +56,6 @@ export const MenuItem = ({ menu = {}, depth = 1, selection = "" }) => {
         border: "none thin gray",
         paddingLeft: depth * 20
       }}
-      // key={"menu-item-" + index}
       onClick={() => show(!showDetails)}
     >
       <Text text={text} depth={depth} selection={selection} />
