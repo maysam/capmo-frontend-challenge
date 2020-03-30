@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/capmo-frontend-challenge/static/css/main.1b6a9dc0.chunk.css",
-    "main.js": "/capmo-frontend-challenge/static/js/main.59d9885f.chunk.js",
-    "main.js.map": "/capmo-frontend-challenge/static/js/main.59d9885f.chunk.js.map",
+    "main.js": "/capmo-frontend-challenge/static/js/main.b870e99f.chunk.js",
+    "main.js.map": "/capmo-frontend-challenge/static/js/main.b870e99f.chunk.js.map",
     "runtime-main.js": "/capmo-frontend-challenge/static/js/runtime-main.18a40e5e.js",
     "runtime-main.js.map": "/capmo-frontend-challenge/static/js/runtime-main.18a40e5e.js.map",
-    "static/js/2.8638f72c.chunk.js": "/capmo-frontend-challenge/static/js/2.8638f72c.chunk.js",
-    "static/js/2.8638f72c.chunk.js.map": "/capmo-frontend-challenge/static/js/2.8638f72c.chunk.js.map",
+    "static/js/2.49bdedda.chunk.js": "/capmo-frontend-challenge/static/js/2.49bdedda.chunk.js",
+    "static/js/2.49bdedda.chunk.js.map": "/capmo-frontend-challenge/static/js/2.49bdedda.chunk.js.map",
     "index.html": "/capmo-frontend-challenge/index.html",
-    "precache-manifest.4c3ca9726b66b6018909113530b363e3.js": "/capmo-frontend-challenge/precache-manifest.4c3ca9726b66b6018909113530b363e3.js",
+    "precache-manifest.221b9afe1a3bfa21aa9f55348c376b07.js": "/capmo-frontend-challenge/precache-manifest.221b9afe1a3bfa21aa9f55348c376b07.js",
     "service-worker.js": "/capmo-frontend-challenge/service-worker.js",
     "static/css/main.1b6a9dc0.chunk.css.map": "/capmo-frontend-challenge/static/css/main.1b6a9dc0.chunk.css.map",
-    "static/js/2.8638f72c.chunk.js.LICENSE.txt": "/capmo-frontend-challenge/static/js/2.8638f72c.chunk.js.LICENSE.txt"
+    "static/js/2.49bdedda.chunk.js.LICENSE.txt": "/capmo-frontend-challenge/static/js/2.49bdedda.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.18a40e5e.js",
-    "static/js/2.8638f72c.chunk.js",
+    "static/js/2.49bdedda.chunk.js",
     "static/css/main.1b6a9dc0.chunk.css",
-    "static/js/main.59d9885f.chunk.js"
+    "static/js/main.b870e99f.chunk.js"
   ]
 }
