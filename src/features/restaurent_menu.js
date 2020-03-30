@@ -1,22 +1,31 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectMenu } from "./actions/actionSlice";
+import React, { useState, useReducer } from "react";
 import {
+  AppBar,
+  Toolbar,
   FormControlLabel,
   Typography,
   TextField,
   Switch
 } from "@material-ui/core";
+
+import { reducer, initialState } from "./actions/reducer";
 import { MenuItem } from "./menu_item";
 import { MenuEditor } from "./menu_editor";
+
 export const RestaurentMenu = () => {
-  const menu = useSelector(selectMenu);
   const [keyword, setKeyword] = useState("");
   const [editable, toggleEditable] = useState(false);
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const menu = state.menu;
+
   return (
     <div>
-      <Typography variant="h2">Restaurent Menu</Typography>
+      <AppBar position="static" style={{ marginBottom: 10 }}>
+        <Toolbar>
+          <Typography variant="h3">Restaurent Menu</Typography>
+        </Toolbar>
+      </AppBar>
       <FormControlLabel
         control={
           <Switch
@@ -24,7 +33,7 @@ export const RestaurentMenu = () => {
             onChange={e => toggleEditable(!editable)}
           />
         }
-        label="Editable Menu"
+        label="Allow adding to Menu"
       />
       <TextField
         value={keyword}
@@ -43,7 +52,7 @@ export const RestaurentMenu = () => {
           ))}
         </div>
       </div>
-      {editable && <MenuEditor />}
+      {editable && <MenuEditor menu={menu} dispatch={dispatch} />}
     </div>
   );
 };

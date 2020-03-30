@@ -1,5 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 const initialMenu = [
   {
     "Bacon & eggs": [
@@ -41,48 +39,43 @@ const initialMenu = [
     ]
   }
 ];
+export const initialState = { menu: initialMenu };
 
-export const slice = createSlice({
-  name: "restaurent",
-  initialState: {
-    menu: initialMenu
-  },
-  reducers: {
-    addNewMenu: (state, action) => {
+export function reducer(state, action) {
+  const oldMenu = state.menu;
+  const newMenu = {};
+  switch (action.type) {
+    case "addNewMenu":
       if (!action.payload) {
-        return;
+        return state;
       }
-      const newMenu = {};
       newMenu[action.payload] = [];
-      state.menu.push(newMenu);
-    },
-    addNewIngredient: (state, action) => {
+      oldMenu.push(newMenu);
+      return { menu: oldMenu };
+    case "addNewIngredient":
       const { selectedMenu, newIngredient } = action.payload;
       if (!newIngredient) {
-        return;
+        return state;
       }
-      const newMenu = {};
-      newMenu[newIngredient] = [];
 
       const parts = selectedMenu.split(" -> ");
       let menu = state.menu;
 
       parts.forEach(element => {
-        Object.values(menu).forEach((item, index) => {
+        for (let index = 0; index < Object.values(menu).length; index++) {
+          const item = Object.values(menu)[index];
           const key = Object.keys(item)[0];
           if (key === element) {
-            menu = Object.values(menu)[index][key];
+            menu = item[key];
+            break;
           }
-        });
+        }
       });
 
+      newMenu[newIngredient] = [];
       menu.push(newMenu);
-    }
+      return { menu: oldMenu };
+    default:
+      throw new Error();
   }
-});
-
-export const { addNewMenu, addNewIngredient } = slice.actions;
-
-export const selectMenu = state => state.restaurent.menu;
-
-export default slice.reducer;
+}

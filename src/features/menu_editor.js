@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {
+  AppBar,
+  Toolbar,
   FormGroup,
   Typography,
   TextField,
@@ -8,12 +9,6 @@ import {
   MenuItem,
   Button
 } from "@material-ui/core";
-
-import {
-  selectMenu,
-  addNewMenu,
-  addNewIngredient
-} from "./actions/actionSlice";
 
 const flattenMenu = menu => {
   const text = Object.keys(menu)[0];
@@ -29,17 +24,22 @@ const flattenMenu = menu => {
   return menus;
 };
 
-export const MenuEditor = () => {
-  const menu = useSelector(selectMenu);
+export const MenuEditor = ({ menu, dispatch }) => {
   const flattenedMenu = menu.flatMap(item => flattenMenu(item));
 
   const [newMenu, setNewMenu] = useState("");
   const [selectedMenu, setSelectedMenu] = useState(flattenedMenu[0]);
   const [newIngredient, setNewIngredient] = useState("");
-  const dispatch = useDispatch();
+
   return (
-    <div style={{ margin: 20 }}>
-      <Typography variant="h3">Adding items or ingredients to the Menu</Typography>
+    <div style={{ margin: 50, border: "thin solid", padding: 10 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h5">
+            Adding items or ingredients to the Menu
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <FormGroup row style={{ padding: 20 }}>
         <TextField
           variant="outlined"
@@ -50,7 +50,8 @@ export const MenuEditor = () => {
         <Button
           variant="outlined"
           onClick={() => {
-            dispatch(addNewMenu(newMenu), setNewMenu(""));
+            dispatch({ type: "addNewMenu", payload: newMenu });
+            setNewMenu("");
           }}
         >
           Add new menu item
@@ -60,6 +61,7 @@ export const MenuEditor = () => {
         <Select
           autoWidth
           value={selectedMenu}
+          variant="outlined"
           onChange={e => setSelectedMenu(e.target.value)}
         >
           {flattenedMenu.map(menu => (
@@ -77,10 +79,11 @@ export const MenuEditor = () => {
         <Button
           variant="outlined"
           onClick={() => {
-            dispatch(
-              addNewIngredient({ newIngredient, selectedMenu }),
-              setNewIngredient("")
-            );
+            dispatch({
+              type: "addNewIngredient",
+              payload: { newIngredient, selectedMenu }
+            });
+            setNewIngredient("");
           }}
         >
           Add ingridient to menu item

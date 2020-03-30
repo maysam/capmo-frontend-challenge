@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography } from "@material-ui/core";
 
 const Text = ({ text = "provide text", depth = 1, selection }) => (
-  <Typography variant={"h" + (depth + 2)}>
+  <Typography variant={"h" + (Math.min(6,depth + 3))}>
     {depth > 1 && "└"}
     {depth > 1 && selection ? (
       <span
